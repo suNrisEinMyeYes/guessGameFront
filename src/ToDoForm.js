@@ -1,34 +1,59 @@
 import { useState } from 'react'
+import { create } from './interact'
+
 
 function ToDoForm({ addTask }) {
-    const [userInput, setUserInput] = useState('')
+    const [bid, setBid] = useState('')
+    const [maxPlayers, setMaxPlayers] = useState('')
+    const [guessed, setNumber] = useState('')
+
+
 
     const handleChange = (e) => {
-        setUserInput(e.currentTarget.value)
-    }
-    
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        addTask(userInput)
-        setUserInput("")
+        setBid(e.currentTarget.value)
     }
 
-    const handleKeyPress = (e) => {
-        if(e.key === "Enter") {
-            handleSubmit(e)
-        }
+    const handleChange2 = (e) => {
+        setMaxPlayers(e.currentTarget.value)
     }
-    
+
+    const handleChange3 = (e) => {
+        setNumber(e.currentTarget.value)
+    }
+
+    const handleSubmit1 = (e) => {
+        e.preventDefault()
+        addTask(guessed, maxPlayers, bid)
+        setBid("")
+        setMaxPlayers("")
+        setNumber("")
+
+    }
+
+
+
     return (
-        <form onSubmit={handleSubmit}>
-            <input 
-                value={userInput}
+
+        <form onSubmit={handleSubmit1}>
+            <input
+                value={bid}
                 type="text"
                 onChange={handleChange}
-                onKeyDown={handleKeyPress}
-                placeholder="Введите значение..."
-            />        
-            <button>Сохранить</button>
+                placeholder="Your bid"
+            />
+            <input
+                value={maxPlayers}
+                type="text"
+                onChange={handleChange2}
+                placeholder="Max players"
+            />
+            <input
+                value={guessed}
+                type="text"
+                onChange={handleChange3}
+                placeholder="guesse number"
+            />
+            <button >Create game</button>
         </form>
     )
 }
